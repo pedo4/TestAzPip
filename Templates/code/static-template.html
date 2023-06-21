@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Selezione Template</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
+  <style>
+    body {
+      background-color: #f8f8f8;
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 42px;
+      color: #333;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      margin-top: 50px;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      margin-top: 50px;
+    }
+
+    .template {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .template:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .template img {
+      max-width: 100px;
+      height: auto;
+    }
+
+    .template p {
+      margin-top: 10px;
+      color: #666;
+    }
+
+    .selected {
+      background-color: #ff7f50;
+      color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1 class="title">Benvenuto in SmartSite</h1>
+  <div class="grid-container">
+    <div class="template" data-type="ecommerce">
+      <img src="e-commerce.png" alt="Icona E-commerce">
+      <p>E-commerce</p>
+    </div>
+    <div class="template" data-type="news">
+      <img src="news.png" alt="Icona News">
+      <p>News</p>
+    </div>
+    <div class="template" data-type="company">
+      <img src="enterprise.png" alt="Icona Compagnia Aziendale">
+      <p>Enterprise</p>
+    </div>
+  </div>
+
+  <script>
+    const templates = document.querySelectorAll('.template');
+    templates.forEach(template => {
+      template.addEventListener('click', () => {
+        templates.forEach(t => t.classList.remove('selected'));
+        template.classList.add('selected');
+      });
+    });
+  </script>
+</body>
+</html>

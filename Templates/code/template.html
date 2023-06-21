@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Selezione Template</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
+  <style>
+    body {
+      background-color: #f8f8f8;
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 42px;
+      color: #333;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      margin-top: 50px;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      margin-top: 50px;
+    }
+
+    .template {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .template:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .template img {
+      max-width: 100px;
+      height: auto;
+    }
+
+    .template p {
+      margin-top: 10px;
+      color: #666;
+    }
+
+    .selected {
+      background-color: #ff7f50;
+      color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .select-button {
+      display: block;
+      width: 100%;
+      max-width: 200px;
+      margin: 0 auto;
+      margin-top: 30px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 12px 16px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .select-button:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="title">Scegli il tuo template</h1>
+  <div class="grid-container" id="templateGrid"></div>
+  <button class="select-button" id="selectButton">Seleziona</button>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const templateGrid = document.getElementById("templateGrid");
+
+      // Funzione per ottenere i template dal server
+      function getTemplates() {
+        // Effettua la richiesta API al server
+        fetch("http://localhost:5000/template")
+          .then(response => response.json())
+          .then(data => {
+            // Popola la griglia con i template ottenuti
+            data.forEach(template => {
+              const templateElement = document.createElement("div");
+              templateElement.classList.add("template");
+              templateElement.dataset.type = template.type;
+
+              const imgElement = document.createElement("img");
+              imgElement.src = "{{ url_for('static', filename='images/') }}" + template.icon;
+              imgElement.alt = "Icona " + template.type;
+
+              const pElement = document.createElement("p");
+              pElement.textContent = template.type;
+
+              templateElement.appendChild(imgElement);
+              templateElement.appendChild(pElement);
+
+              templateGrid.appendChild(templateElement);
+            });
+
+            // Aggiunge l'evento di selezione al click sui template
+            const templates = document.querySelectorAll('.template');
+            templates.forEach(template => {
+              template.addEventListener('click', () => {
+                templates.forEach(t => t.classList.remove('selected'));
+                template.classList.add('selected');
+              });
+            });
+          })
+          .catch(error => {
+            console.log("Errore durante la richiesta dei template:", error);
+          });
+      }
+       // Funzione per inviare la selezione del template al server
+       function sendTemplateSelection(templateType) {
+        const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ templateType })
+        };
+
+        // Effettua la richiesta API al server
+        fetch("http://localhost:5001/par", requestOptions)
+          .then(response => response.text())
+.then(data => {
+  // Inserisci il codice HTML nella pagina corrente
+  document.documentElement.innerHTML = data;
+})
+          .catch(error => {
+            console.log("Errore durante l'invio della selezione del template:", error);
+          });
+      }
+       // Aggiunge l'evento di selezione al click sul bottone "Seleziona"
+       const selectButton = document.getElementById('selectButton');
+      selectButton.addEventListener('click', function() {
+        const selectedTemplate = document.querySelector('.template.selected');
+        if (selectedTemplate) {
+          const templateType = selectedTemplate.dataset.type;
+          sendTemplateSelection(templateType);
+        }
+      });
+      // Chiamata alla funzione per ottenere i template
+      getTemplates();
+    });
+  </script>
+</body>
+</html>
