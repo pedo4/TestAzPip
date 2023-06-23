@@ -101,7 +101,7 @@
       // Funzione per ottenere i template dal server
       function getTemplates() {
         // Effettua la richiesta API al server
-        fetch("http://localhost:5000/template")
+        fetch("/template")
           .then(response => response.json())
           .then(data => {
             // Popola la griglia con i template ottenuti
