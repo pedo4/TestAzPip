@@ -22,7 +22,8 @@ jobs:
           password: ${{ secrets.ACR_PASSWORD }}
 
       - name: Build Docker image
-        run: docker build -t srs2023.azurecr.io/templ .
+        run: docker build -t srs2023.azurecr.io/templ -f Templates/Dockerfile Templates/
+    
 
       - name: Push Docker image to Azure Container Registry
         run: docker push srs2023.azurecr.io/templ
