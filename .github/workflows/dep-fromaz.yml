@@ -6,7 +6,7 @@ name: Build and deploy container app to Azure Web App - ProvaSRS-3
 on:
   push:
     branches:
-      - dependabot/pip/Templates/flask-2.2.5
+      - main
   workflow_dispatch:
 
 jobs:
@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: srs2023.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_6c6c7e1f094847e8bb6b97d487c0570d }}/samples/e_comm2:${{ github.sha }}
+        tags: srs2023.azurecr.io/samples/e_comm2:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
