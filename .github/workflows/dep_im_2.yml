@@ -31,7 +31,8 @@ jobs:
       with:
         push: true
         tags: srs2023.azurecr.io/temp:${{ github.sha }}
-        file: ./Dockerfile
+        file: Templates/Dockerfile
+        context: Templates/
 
   deploy:
     runs-on: ubuntu-latest
