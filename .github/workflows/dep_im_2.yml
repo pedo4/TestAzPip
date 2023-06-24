@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: srs2023.azurecr.io/samples/e_comm2:${{ github.sha }}
+        tags: srs2023.azurecr.io/temp:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -48,4 +48,4 @@ jobs:
         app-name: 'ProvaSRS-3'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_1a92a837de6d4eb8bfb121b27657ee7d }}
-        images: 'srs2023.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_6c6c7e1f094847e8bb6b97d487c0570d }}/samples/e_comm2:${{ github.sha }}'
+        images: 'srs2023.azurecr.io/temp:${{ github.sha }}'
