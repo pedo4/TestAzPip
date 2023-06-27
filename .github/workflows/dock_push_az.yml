@@ -26,4 +26,4 @@ jobs:
     
 
       - name: Push Docker image to Azure Container Registry
-        run: docker push srs2023.azurecr.io/templ
+        run: docker push srs2023.azurecr.io/templ2
