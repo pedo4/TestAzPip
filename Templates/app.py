@@ -24,7 +24,7 @@ def get_templates():
     return jsonify(templates)
 
 # Pagina principale
-@app.route('/', methods=['GET'])
+@app.route('/templ', methods=['GET'])
 def index():
     return render_template('template.html')
 
