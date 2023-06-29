@@ -77,7 +77,8 @@ def authenticate_user(username, password):
     if result:
         hashed_password, salt = result
         # Genera l'hash della password inserita utilizzando il salt memorizzato
-        entered_password_hash = bcrypt.hashpw(password.encode('utf-8'), salt.encode('utf-8')).decode('utf-8')
+        entered_password_hash = bcrypt.hashpw(password.encode('utf-8'), bytes(salt, 'utf-8')).decode('utf-8')
+
         # Confronta l'hash generato con l'hash memorizzato nel database
         if entered_password_hash == hashed_password:
             # Le credenziali sono corrette, l'utente è autenticato
@@ -111,6 +112,7 @@ def register_user(username, hashed_password, salt):
 
     conn.commit()
     conn.close()
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)
