@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Benvenuto</title>
+</head>
+<body>
+  <h1>Benvenuto!</h1>
+  <p>Questa è una pagina di benvenuto per l'utente.</p>
+  
+  <button onclick="sendGetRequest()">Invia GET</button>
+
+  <script>
+    function sendGetRequest() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          // La richiesta è stata completata con successo
+          // Puoi gestire la risposta qui se necessario
+          console.log("GET request completata");
+        }
+      };
+      xhttp.open("GET", "/templ", true);
+      xhttp.send();
+    }
+  </script>
+</body>
+</html>
