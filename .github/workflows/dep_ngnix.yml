@@ -1,4 +1,4 @@
-name: Build and Publish Container
+name: Ngnix image
 
 on:
   push:
