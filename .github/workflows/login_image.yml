@@ -1,0 +1,28 @@
+name: login image
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Login to Azure Container Registry
+        uses: azure/docker-login@v1
+        with:
+          login-server: srs2023.azurecr.io
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+
+      - name: Build Docker image
+        run: docker build -t srs2023.azurecr.io/login -f login/Dockerfile login/
+    
+
+      - name: Push Docker image to Azure Container Registry
+        run: docker push srs2023.azurecr.io/login
