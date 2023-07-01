@@ -88,7 +88,7 @@
 
   <div class="grid-container" id="templateGrid"></div>
 
-  <form id="selectTemplateForm" method="POST" action="http://localhost:5001/par">
+  <form id="selectTemplateForm" method="POST" action="/par">
     <input type="hidden" name="templateType" id="templateTypeInput">
     <button type="submit" class="select-button" id="selectButton">Seleziona</button>
   </form>
@@ -101,7 +101,7 @@
       // Funzione per ottenere i template dal server
       function getTemplates() {
         // Effettua la richiesta API al server
-        fetch("http://localhost:5000/template")
+        fetch("/template")
           .then(response => response.json())
           .then(data => {
             // Popola la griglia con i template ottenuti
@@ -111,7 +111,7 @@
               templateElement.dataset.type = template.type;
 
               const imgElement = document.createElement("img");
-              imgElement.src = "{{ url_for('static', filename='images/') }}" + template.icon;
+              imgElement.src = "/static/images/" + template.icon;
               imgElement.alt = "Icona " + template.type;
 
               const pElement = document.createElement("p");
