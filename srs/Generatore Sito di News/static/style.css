@@ -1,0 +1,79 @@
+/* styles.css */
+
+/* Reset CSS to reset default margins and paddings */
+body, h1, h2, h3, h4, h5, h6, p, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Style for the header */
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 28px;
+}
+
+/* Style for the main content */
+main {
+  margin: 20px;
+}
+
+article {
+  background-color: #f9f9f9;
+  padding: 20px;
+  margin-bottom: 40px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+article h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+article h3 {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+article p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+/* Style for the footer */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+}
+
+footer p {
+  font-size: 14px;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  header h1 {
+      font-size: 24px;
+  }
+
+  article h2 {
+      font-size: 20px;
+  }
+
+  article h3 {
+      font-size: 16px;
+  }
+
+  footer p {
+      font-size: 12px;
+  }
+}
