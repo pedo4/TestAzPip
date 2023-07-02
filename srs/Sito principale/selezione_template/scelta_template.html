@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Scelta Template</title>
+        <link rel="stylesheet" type="text/css" href="style6.css">
+      </head>
+<body>
+    <div class="banner">
+        <div class="navbar">
+            <ul>
+                <li><a href="#">Nuovo template</a></li>
+                <li><a href="#">I tuoi templates</a></li>
+                <li><a href="#">Link 3</a></li>
+            </ul>
+            
+        </div>
+
+        <div class="logout">
+            <button type="button" ><span></span>LOGOUT</button>
+        </div>
+ 
+  <div class="content">
+    <h2>Seleziona la tipologia di sito da generare</h2>
+  <div class="grid-container">
+    <div class="template" data-type="ecommerce">
+      <img src="e-commerce.png" alt="Icona E-commerce">
+      <p>E-commerce</p>
+    </div>
+    <div class="template" data-type="news">
+      <img src="news.png" alt="Icona News">
+      <p>News</p>
+    </div>
+    <div class="template" data-type="company">
+      <img src="enterprise.png" alt="Icona Compagnia Aziendale">
+      <p>Enterprise</p>
+    </div>
+    
+</div>
+<button type="submit">Invia<span></span></button>
+  </div>
+
+  
+
+  <script>
+    const templates = document.querySelectorAll('.template');
+    templates.forEach(template => {
+      template.addEventListener('click', () => {
+        templates.forEach(t => t.classList.remove('selected'));
+        template.classList.add('selected');
+      });
+    });
+  </script>
+</body>
+</html>
