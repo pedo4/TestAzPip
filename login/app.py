@@ -1,13 +1,18 @@
 import pypyodbc as odbc
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect,session
 import bcrypt
 from waitress import serve
 
 app = Flask(__name__)
 
+# Funzione per ottenere la stringa di connessione al database MySQL
+def get_connection_string():
+    connection_string = 'Driver={ODBC Driver 18 for SQL Server};Server=tcp:server2023srs.database.windows.net,1433;Database=srslogreg;Uid=AdminSRS;Pwd=Cpaaa2023;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;'
+    return connection_string
+
 # Funzione per la connessione al database MySQL
 def connect_to_database():
-    connection_string = 'Driver={ODBC Driver 18 for SQL Server};Server=tcp:server2023srs.database.windows.net,1433;Database=srslogreg;Uid=AdminSRS;Pwd=Cpaaa2023;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;'
+    connection_string = get_connection_string()
     try:
         conn = odbc.connect(connection_string)
         print('Connessione al database avvenuta con successo.')
@@ -30,6 +35,8 @@ def login():
         # Esegui l'autenticazione dell'utente nel database
         if authenticate_user(username, password):
             # Utente autenticato, fai qualcosa
+            session['auth_token'] = 'mytoken'
+            session['username'] = username
             return redirect("/templ")
         else:
             # Autenticazione fallita, gestisci l'errore
