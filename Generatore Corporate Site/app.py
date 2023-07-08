@@ -65,8 +65,8 @@ def generate_html_from_description(company_name, address, email, phone, service_
     prompt = f"Alterare il codice HTML che ti invio nel modo seguente: Inserisci {company_name} per il nome dell'azienda con una descrizione ed un numero di servizi offerti pari a {service_count}, inventandoti dei nomi e delle descrizioni per quest'ultimi, senza aggiungere link. Inserisci, inoltre, {email}, {address} e {phone} nella sezione Contatti.\n\n{html_content}. Utilizza lo stesso stile del file html. Inoltre, inserisci {company_name} all'interno della navbar con un tag <h3>."
 
     # Impostazione della chiave API
-    openai.api_key = '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'
-
+    openai.api_key = ${{ secrets.KEY }}
+    
     # Chiamata all'API di completamento di OpenAI
     response = openai.Completion.create(
         engine='text-davinci-003',
