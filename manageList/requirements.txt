@@ -1,0 +1,5 @@
+Flask==2.0.2
+waitress
+azure-storage-blob
+docker
+pypyodbc==1.3.6
