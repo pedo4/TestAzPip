@@ -1,0 +1,5 @@
+Flask==2.0.2
+waitress
+openai
+azure-storage-blob
+waitress
