@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Parametri News Website</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style4.css') }}">
+</head>
+
+<body>
+  <div class="banner">
+    <div class="navbar">
+      <ul>
+        <li><a href="/templ">Nuovo template</a></li>
+        <li><a href="/myApp">I tuoi templates</a></li>
+        <li><a href="#">Link 3</a></li>
+      </ul>
+      
+  </div>
+
+  <div class="logout">
+      <button type="button"><span></span>LOGOUT</button>
+  </div>
+    <div class="content">
+      <h1>News Website</h1>
+      <form id="news-form" action="/genera_news_website" method="POST">
+        <p>Inserisci i dettagli dell'articolo:</p>
+        <input type="number" id="num_articoli" name="num_articoli" min="1" max="5" placeholder="Numero di articoli (max 5)" required>
+        <input type="number" id="lunghezza_articoli" name="lunghezza_articoli" min="1" max="10" placeholder="Lunghezza articoli (max 10)" required>
+        <button type="submit">Genera Sito<span></span></button>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>

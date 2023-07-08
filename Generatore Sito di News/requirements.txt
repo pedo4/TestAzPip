@@ -1,0 +1,9 @@
+newspaper3k
+bs4
+newsapi-python
+jinja2
+nltk
+openai
+flask
+azure-storage-blob
+waitress
