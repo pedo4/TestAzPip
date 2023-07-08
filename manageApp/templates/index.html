@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Controllo Web App Azure</title>
+  <style>
+    body {
+      background-color: #f8f8f8;
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 50px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      color: #333;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      margin-bottom: 30px;
+    }
+
+    button {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 16px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 24px;
+    }
+
+    button:hover {
+      background-color: #555;
+    }
+
+    .appDataSection {
+      margin-top: 50px;
+      text-align: center;
+    }
+
+    .appDataSection h2 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .appDataSection p {
+      font-size: 18px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    function getAppData() {
+      $.ajax({
+        url: "/getData",
+        method: "GET",
+        success: function(data) {
+          // Aggiorna la sezione dei dati dell'applicazione con i valori ottenuti
+          $("#appName").text(data.appName);
+          $("#defaultDomain").text(data.defaultDomain);
+          $("#location").text(data.location);
+          $("#containerImage").text(data.containerImage);
+
+          // Mostra la sezione dei dati dell'applicazione
+          $(".appDataSection").show();
+        },
+        error: function(xhr, status, error) {
+          console.error("Errore nella richiesta dei dati dell'applicazione:", error);
+        }
+      });
+    }
+
+    function sendRequest(action) {
+      $.ajax({
+        url: "/api/webapp/" + action,
+        method: "GET",
+        success: function(response) {
+          console.log(response.message);
+        },
+        error: function(xhr, status, error) {
+          console.error("Errore nella richiesta:", xhr.status);
+        }
+      });
+    }
+
+    $(document).ready(function() {
+      getAppData();
+    });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>Controllo Web App Azure</h1>
+
+    <!-- Aggiungi i bottoni -->
+    <div>
+      <button id="startButton" onclick="sendRequest('start')">Avvia</button>
+      <button id="stopButton" onclick="sendRequest('stop')">Arresta</button>
+    </div>
+
+    <!-- Aggiungi la sezione dei dati dell'applicazione -->
+    <div class="appDataSection" style="display: none;">
+      <h2>Dati dell'applicazione</h2>
+      <h2>Nome applicazione:</h2>
+      <p id="appName"></p>
+
+      <h2>Dominio predefinito:</h2>
+      <p id="defaultDomain"></p>
+
+      <h2>Località:</h2>
+      <p id="location"></p>
+
+      <h2>Immagine contenitore:</h2>
+      <p id="containerImage"></p>
+    </div>
+  </div>
+</body>
+</html>
