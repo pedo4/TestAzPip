@@ -2,12 +2,16 @@ import pypyodbc as odbc
 from flask import Flask, render_template, request, redirect,session
 import bcrypt
 from waitress import serve
+import bleach
+
+
 
 app = Flask(__name__)
+app.secret_key = "mysecret"
 
-# Funzione per ottenere la stringa di connessione al database MySQL
+#Funzione per ottenere la stringa di connessione al database MySQL
 def get_connection_string():
-    connection_string = 'Driver={ODBC Driver 18 for SQL Server};Server=tcp:server2023srs.database.windows.net,1433;Database=srslogreg;Uid=AdminSRS;Pwd=Cpaaa2023;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;'
+    connection_string = 'Driver={ODBC Driver 18 for SQL Server};Server=tcp:serverprova2-0.database.windows.net,1433;Database=SRSLoginDB;Uid=adminSRS;Pwd=Cpaaa2023;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;'
     return connection_string
 
 # Funzione per la connessione al database MySQL
@@ -37,7 +41,8 @@ def login():
             # Utente autenticato, fai qualcosa
             session['auth_token'] = 'mytoken'
             session['username'] = username
-            return redirect("/templ")
+            print(session)
+            return redirect("/mySite")
         else:
             # Autenticazione fallita, gestisci l'errore
             return "Credenziali non valide. Riprova."
@@ -72,14 +77,18 @@ def register():
     # Se il metodo della richiesta è GET, restituisci la pagina di registrazione
     return render_template('registrazione.html')
 
+
+
 # Funzione per l'autenticazione dell'utente nel database
 def authenticate_user(username, password):
     conn = connect_to_database()
     cursor = conn.cursor()
+     # Sanifica l'input dell'username utilizzando Bleach
+    sanitized_username = bleach.clean(username)
 
     # Esegui la query per ottenere l'hash della password e il salt corrispondente all'utente
     query = "SELECT password, salt FROM users WHERE username=?"
-    cursor.execute(query, (username,))
+    cursor.execute(query, (sanitized_username,))
     result = cursor.fetchone()
 
     if result:
