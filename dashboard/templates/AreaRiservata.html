@@ -1,0 +1,29 @@
+<html>
+<head>
+    <title>Pagina di benvenuto</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style3.css') }}">
+  
+</head>
+
+<body>
+<div class="banner">
+    <div class="navbar">
+        <ul>
+            <li><a href="/templ">Nuovo template</a></li>
+            <li><a href="/myApp">I tuoi templates</a></li>
+            <li><a href="#">Link 3</a></li>
+        </ul>
+    </div>
+
+    <form id="logout-form" action="/logout" method="GET">
+        <button type="submit"><span></span>LOGOUT</button>
+    </form>
+
+    <div class="content">
+        <h3>Ciao <span id="username">{{username}}</span>, benvenuto nella<br>tua area riservata.</h3>
+        <img src="{{ url_for('static', filename='images/user_image.jpg') }}">
+    </div>
+</div>
+
+</body>
+</html>
